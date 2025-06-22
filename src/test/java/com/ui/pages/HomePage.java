@@ -14,24 +14,16 @@ import com.ui.utilities.LoggerUtility;
 public final class HomePage extends BrowserUtility{
 	
 	Logger logger = LoggerUtility.getLogger(this.getClass());
-	
-     public HomePage(Browser browserName,boolean isHeadless) {
-		super(browserName,isHeadless);
-		goToWebsite(readProperty(QA, "URL"));
-	}
-     
-     public HomePage(WebDriver lambdaDriver) {
- 		super(lambdaDriver);
- 	}
           
 	private static final By SIGN_IN_LINK_LOCATOR=By.xpath("//a[@title='Log in to your customer account']");
-   
-     public LogInPage goToLoginPage() {
-    	 logger.info("trying to perform click to go to sign in page");
-    	 clickOn(SIGN_IN_LINK_LOCATOR);
-    	 LogInPage loginPage= new LogInPage(getDriver());
-    	 return loginPage;
-     }
+  
+
+	public void openApplication() {
+		// TODO Auto-generated method stub
+		goToWebsite(readProperty(QA, "URL"));
+   	 logger.info("trying to perform click to go to sign in page");
+   	 clickOn(SIGN_IN_LINK_LOCATOR);
+	}
 
 
    

@@ -9,12 +9,12 @@ import org.testng.annotations.Parameters;
 
 import com.constants.Browser;
 import com.ui.pages.HomePage;
+import com.ui.utilities.DriverManager;
 import com.ui.utilities.LambdatestUtility;
 
 public class TestBase {
 	
-	protected HomePage hp;
-	private boolean isLambdaTest;
+	private String browser;
 	
 	@Parameters({"browser", "isLambdaTest" , "isHeadLess"})
 	
@@ -23,28 +23,14 @@ public class TestBase {
 			          @Optional("false")boolean isLambdaTest,
 			          @Optional("false")boolean isHeadLess,
 			          ITestResult result) {
-		
-		this.isLambdaTest= isLambdaTest;
-		WebDriver lambdaDriver;
-		if(isLambdaTest) {
-			lambdaDriver=LambdatestUtility.initializeLambdatestSession(browser, result.getMethod().getMethodName());
-			hp= new HomePage(lambdaDriver);
-			
-		}
-		else {
-			Browser browserEnum = Browser.valueOf(browser.toUpperCase());
-			hp= new HomePage(browserEnum, isHeadLess);
-		}
+			this.browser=browser;
+			DriverManager.getInstance(browser).getDriver();
 	}
 		
 	
 	@AfterMethod(description="close the browser session")
 	 public void tearDown() {
-		if(isLambdaTest) {
-			LambdatestUtility.quitSession();
-		}
-		else {
-		 hp.closeBrowser();
-	 }
+		DriverManager.getInstance(browser).quitDriver();
+		
 	}	
 }

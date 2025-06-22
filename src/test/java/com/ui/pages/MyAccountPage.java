@@ -1,5 +1,7 @@
 package com.ui.pages;
 
+import static org.testng.Assert.assertEquals;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,13 +13,10 @@ public final class MyAccountPage extends BrowserUtility{
 	private static final By SEARCH_TEXT_BOX_LOCATOR=By.xpath("//input[@id='search_query_top']");
 	private static final By ADD_NEW_ADDRESS_LINK_LOCATOR=By.xpath("//a[contains(@title,'first address')]");
 
-	public MyAccountPage(WebDriver driver) {
-		super(driver);
-		
-	}
 	
-	public String verifyUserName() {
-		return getStringValue(USER_NAME_LOCATOR);
+	public void verifyUserName(String expectedVal) {
+		assertEquals(getStringValue(USER_NAME_LOCATOR),
+				expectedVal);
 	}
 	
 	public SearchResultPage searchForAProduct(String productName) {
